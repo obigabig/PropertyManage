@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditContract));
             this.label1 = new System.Windows.Forms.Label();
             this.lblContractID = new System.Windows.Forms.Label();
@@ -54,15 +53,6 @@
             this.SignDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemDateEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.tabAlert = new System.Windows.Forms.TabPage();
-            this.gridControlAlert = new DevExpress.XtraGrid.GridControl();
-            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.AlertNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.AlertDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemDateEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.AlertType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemDateEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.tabMember = new System.Windows.Forms.TabPage();
             this.gridControlMember = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -71,9 +61,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            
             this.txtValue = new DevExpress.XtraEditors.TextEdit();
             this.txtContractDate = new System.Windows.Forms.TextBox();
-            this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
             this.tabControl1.SuspendLayout();
             this.tabDate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlDate)).BeginInit();
@@ -83,14 +73,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            this.tabAlert.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlAlert)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             this.tabMember.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlMember)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -248,13 +230,12 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabDate);
-            this.tabControl1.Controls.Add(this.tabAlert);
             this.tabControl1.Controls.Add(this.tabMember);
             this.tabControl1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.tabControl1.Location = new System.Drawing.Point(67, 216);
+            this.tabControl1.Location = new System.Drawing.Point(72, 215);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(433, 232);
+            this.tabControl1.Size = new System.Drawing.Size(434, 232);
             this.tabControl1.TabIndex = 17;
             // 
             // tabDate
@@ -264,7 +245,7 @@
             this.tabDate.Location = new System.Drawing.Point(4, 27);
             this.tabDate.Name = "tabDate";
             this.tabDate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDate.Size = new System.Drawing.Size(425, 201);
+            this.tabDate.Size = new System.Drawing.Size(426, 201);
             this.tabDate.TabIndex = 0;
             this.tabDate.Text = "วันไถ่ถอน/นัดต่อสัญญา";
             this.tabDate.UseVisualStyleBackColor = true;
@@ -272,14 +253,14 @@
             // gridControlDate
             // 
             this.gridControlDate.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.gridControlDate.Location = new System.Drawing.Point(3, 5);
+            this.gridControlDate.Location = new System.Drawing.Point(6, 4);
             this.gridControlDate.MainView = this.gridView1;
             this.gridControlDate.Name = "gridControlDate";
             this.gridControlDate.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit1,
             this.repositoryItemDateEdit2,
             this.repositoryItemTextEdit1});
-            this.gridControlDate.Size = new System.Drawing.Size(416, 195);
+            this.gridControlDate.Size = new System.Drawing.Size(414, 191);
             this.gridControlDate.TabIndex = 0;
             this.gridControlDate.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -297,7 +278,11 @@
             this.gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
             this.gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridView1_RowClick);
+            this.gridView1.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView1_CustomDrawCell);
             this.gridView1.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridView1_ShowingEditor);
+            this.gridView1.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridView1_InitNewRow);
+            this.gridView1.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridView1_FocusedRowChanged);
             this.gridView1.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView1_CustomColumnDisplayText);
             this.gridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyDown);
             // 
@@ -321,7 +306,7 @@
             this.No.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.No.Visible = true;
             this.No.VisibleIndex = 0;
-            this.No.Width = 61;
+            this.No.Width = 70;
             // 
             // RedeemDate
             // 
@@ -342,7 +327,7 @@
             this.RedeemDate.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
             this.RedeemDate.Visible = true;
             this.RedeemDate.VisibleIndex = 1;
-            this.RedeemDate.Width = 140;
+            this.RedeemDate.Width = 159;
             // 
             // repositoryItemDateEdit1
             // 
@@ -372,7 +357,7 @@
             this.SignDate.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
             this.SignDate.Visible = true;
             this.SignDate.VisibleIndex = 2;
-            this.SignDate.Width = 137;
+            this.SignDate.Width = 167;
             // 
             // repositoryItemDateEdit2
             // 
@@ -388,135 +373,6 @@
             this.repositoryItemTextEdit1.AutoHeight = false;
             this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
             // 
-            // tabAlert
-            // 
-            this.tabAlert.Controls.Add(this.gridControlAlert);
-            this.tabAlert.Location = new System.Drawing.Point(4, 27);
-            this.tabAlert.Name = "tabAlert";
-            this.tabAlert.Size = new System.Drawing.Size(425, 201);
-            this.tabAlert.TabIndex = 2;
-            this.tabAlert.Text = "การแจ้งเตือน อื่นๆ";
-            this.tabAlert.UseVisualStyleBackColor = true;
-            // 
-            // gridControlAlert
-            // 
-            this.gridControlAlert.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            gridLevelNode1.RelationName = "Level1";
-            this.gridControlAlert.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
-            this.gridControlAlert.Location = new System.Drawing.Point(4, 3);
-            this.gridControlAlert.MainView = this.gridView3;
-            this.gridControlAlert.Name = "gridControlAlert";
-            this.gridControlAlert.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemDateEdit3,
-            this.repositoryItemDateEdit4,
-            this.repositoryItemTextEdit2});
-            this.gridControlAlert.Size = new System.Drawing.Size(416, 195);
-            this.gridControlAlert.TabIndex = 1;
-            this.gridControlAlert.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView3});
-            // 
-            // gridView3
-            // 
-            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.AlertNo,
-            this.AlertDate,
-            this.AlertType});
-            this.gridView3.GridControl = this.gridControlAlert;
-            this.gridView3.Name = "gridView3";
-            this.gridView3.OptionsCustomization.AllowSort = false;
-            this.gridView3.OptionsNavigation.AutoMoveRowFocus = false;
-            this.gridView3.OptionsSelection.EnableAppearanceFocusedRow = false;
-            this.gridView3.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
-            this.gridView3.OptionsView.ShowGroupPanel = false;
-            this.gridView3.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gridView3_InitNewRow);
-            this.gridView3.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView3_CustomColumnDisplayText);
-            this.gridView3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView3_KeyDown);
-            // 
-            // AlertNo
-            // 
-            this.AlertNo.AppearanceCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.AlertNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AlertNo.AppearanceCell.Options.UseBackColor = true;
-            this.AlertNo.AppearanceCell.Options.UseFont = true;
-            this.AlertNo.AppearanceCell.Options.UseTextOptions = true;
-            this.AlertNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.AlertNo.AppearanceHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.AlertNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.AlertNo.AppearanceHeader.Options.UseBackColor = true;
-            this.AlertNo.AppearanceHeader.Options.UseFont = true;
-            this.AlertNo.Caption = "ลำดับ";
-            this.AlertNo.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.AlertNo.FieldName = "No";
-            this.AlertNo.Name = "AlertNo";
-            this.AlertNo.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
-            this.AlertNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
-            this.AlertNo.Visible = true;
-            this.AlertNo.VisibleIndex = 0;
-            this.AlertNo.Width = 50;
-            // 
-            // AlertDate
-            // 
-            this.AlertDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.AlertDate.AppearanceCell.Options.UseFont = true;
-            this.AlertDate.AppearanceCell.Options.UseTextOptions = true;
-            this.AlertDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.AlertDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.AlertDate.AppearanceHeader.Options.UseFont = true;
-            this.AlertDate.AppearanceHeader.Options.UseTextOptions = true;
-            this.AlertDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.AlertDate.Caption = "วันแจ้งเตือน";
-            this.AlertDate.ColumnEdit = this.repositoryItemDateEdit4;
-            this.AlertDate.DisplayFormat.FormatString = "dd/MMM/yyyy";
-            this.AlertDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.AlertDate.FieldName = "AlertDate";
-            this.AlertDate.Name = "AlertDate";
-            this.AlertDate.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
-            this.AlertDate.Visible = true;
-            this.AlertDate.VisibleIndex = 1;
-            this.AlertDate.Width = 191;
-            // 
-            // repositoryItemDateEdit4
-            // 
-            this.repositoryItemDateEdit4.AutoHeight = false;
-            this.repositoryItemDateEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit4.Name = "repositoryItemDateEdit4";
-            // 
-            // AlertType
-            // 
-            this.AlertType.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.AlertType.AppearanceCell.Options.UseFont = true;
-            this.AlertType.AppearanceCell.Options.UseTextOptions = true;
-            this.AlertType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.AlertType.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.AlertType.AppearanceHeader.Options.UseFont = true;
-            this.AlertType.AppearanceHeader.Options.UseTextOptions = true;
-            this.AlertType.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.AlertType.Caption = "ประเภท";
-            this.AlertType.FieldName = "AlertType";
-            this.AlertType.Name = "AlertType";
-            this.AlertType.UnboundType = DevExpress.Data.UnboundColumnType.String;
-            this.AlertType.Visible = true;
-            this.AlertType.VisibleIndex = 2;
-            this.AlertType.Width = 157;
-            // 
-            // repositoryItemDateEdit3
-            // 
-            this.repositoryItemDateEdit3.AutoHeight = false;
-            this.repositoryItemDateEdit3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemDateEdit3.Name = "repositoryItemDateEdit3";
-            // 
-            // repositoryItemTextEdit2
-            // 
-            this.repositoryItemTextEdit2.AutoHeight = false;
-            this.repositoryItemTextEdit2.Name = "repositoryItemTextEdit2";
-            // 
             // tabMember
             // 
             this.tabMember.Controls.Add(this.gridControlMember);
@@ -524,7 +380,7 @@
             this.tabMember.Location = new System.Drawing.Point(4, 27);
             this.tabMember.Name = "tabMember";
             this.tabMember.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMember.Size = new System.Drawing.Size(425, 201);
+            this.tabMember.Size = new System.Drawing.Size(426, 201);
             this.tabMember.TabIndex = 1;
             this.tabMember.Text = "รายชื่อ";
             this.tabMember.UseVisualStyleBackColor = true;
@@ -554,6 +410,7 @@
             this.gridView2.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridView2.OptionsView.ShowFooter = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.CustomDrawFooterCell += new DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventHandler(this.gridView2_CustomDrawFooterCell);
             this.gridView2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView2_KeyDown);
             // 
             // MemberId
@@ -629,6 +486,10 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // getContractDateDetailTableAdapter1
+            // 
+           
+            // 
             // txtValue
             // 
             this.txtValue.Location = new System.Drawing.Point(123, 137);
@@ -691,14 +552,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            this.tabAlert.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlAlert)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             this.tabMember.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlMember)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
@@ -745,15 +598,5 @@
         private DevExpress.XtraGrid.Columns.GridColumn Value;
         private DevExpress.XtraEditors.TextEdit txtValue;
         private System.Windows.Forms.TextBox txtContractDate;
-        private System.DirectoryServices.DirectoryEntry directoryEntry1;
-        private System.Windows.Forms.TabPage tabAlert;
-        private DevExpress.XtraGrid.GridControl gridControlAlert;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
-        private DevExpress.XtraGrid.Columns.GridColumn AlertNo;
-        private DevExpress.XtraGrid.Columns.GridColumn AlertType;
-        private DevExpress.XtraGrid.Columns.GridColumn AlertDate;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit4;
-        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit3;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
     }
 }

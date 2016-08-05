@@ -95,40 +95,6 @@ namespace AssetManager
         }
     }
 
-    //1.0.3
-    public class ContractAlert
-    {
-        int contractID = 0;
-        int no = 0;
-        string alertType;
-        DateTime? alertDate;
-
-
-        public int ContractID
-        {
-            get { return contractID; }
-            set { contractID = value; }
-        }
-
-        public int No
-        {
-            get { return no; }
-            set { no = value; }
-        }
-
-        public string AlertType
-        {
-            get { return alertType; }
-            set { alertType = value; }
-        }
-
-        public DateTime? AlertDate
-        {
-            get { return alertDate; }
-            set { alertDate = value; }
-        }
-    }
-
     public class ContractMember
     {
         int contractID = 0;

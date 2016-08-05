@@ -25,7 +25,6 @@ namespace AssetManager
         Service obj = new Service();
 
         DataTable dtContractDate = new DataTable("ContractDate");
-        DataTable dtContractAlert = new DataTable("ContractAlert");   //1.0.3
         DataTable dtContractMember = new DataTable("ContractMember");
         DataTable dtStatus = new DataTable("Status");
         LogWriter Log = new LogWriter(DateTime.Now.ToString() + "\r\n" + "เปิดหน้า Form");
@@ -76,12 +75,10 @@ namespace AssetManager
         {
             DataTable dtContract = new DataTable("Contract");
             DataTable dtContractDate = new DataTable("ContractDate");
-            DataTable dtContractAlert = new DataTable("ContractAlert");
             DataTable dtContractMember = new DataTable("ContractMember");
 
             dtContract = obj.getContractbyId(_id);
             dtContractDate = obj.getContractDatebyId(_id);
-            dtContractAlert = obj.getContractAlertbyId(_id);
             dtContractMember = obj.getContractMemberbyId(_id);
 
             lblContractID.Text = dtContract.Rows[0]["ID"].ToString();
@@ -119,11 +116,6 @@ namespace AssetManager
             gridControlDate.DataSource = dtContractDate;
             gridControlDate.ForceInitialize();
 
-            //1.0.3
-            //Bind the grid control to the data source
-            gridControlAlert.DataSource = dtContractAlert;
-            gridControlAlert.ForceInitialize();
-
             //Bind the grid control to the data source
             gridControlMember.DataSource = dtContractMember;
             gridControlMember.ForceInitialize();
@@ -138,11 +130,6 @@ namespace AssetManager
             dtContractDate.Columns.Add("RedeemDate", typeof(DateTime));
             dtContractDate.Columns.Add("SignDate", typeof(DateTime));
             gridControlDate.DataSource = dtContractDate;
-
-            dtContractAlert.Columns.Add("No", typeof(Int32));
-            dtContractAlert.Columns.Add("AlertType", typeof(string));
-            dtContractAlert.Columns.Add("AlertDate", typeof(DateTime));
-            gridControlAlert.DataSource = dtContractAlert;
 
             dtContractMember.Columns.Add("MemberId", typeof(Int32));
             dtContractMember.Columns.Add("Value", typeof(Decimal));
@@ -207,7 +194,6 @@ namespace AssetManager
 
             gridView1.OptionsBehavior.Editable = false;
             gridView2.OptionsBehavior.Editable = false;
-            gridView3.OptionsBehavior.Editable = false;
         }
 
         private void EnableControl()
@@ -222,7 +208,6 @@ namespace AssetManager
 
             gridView1.OptionsBehavior.Editable = true;
             gridView2.OptionsBehavior.Editable = true;
-            gridView3.OptionsBehavior.Editable = true;
         }
         #endregion
 
@@ -233,20 +218,17 @@ namespace AssetManager
             {
                 bool resultContract;
                 int signCount = 0;
-                int alertCount = 0;
 
                 if (!validateForm()) return;
 
                 int ID = _mode == "Edit" ? _id : Convert.ToInt32(obj.getLastContractID().Rows[0][0]) + 1;
                 Contract contract = new Contract();
                 ContractDate contractDate = new ContractDate();
-                ContractAlert contractAlert = new ContractAlert();    //1.0.3
                 ContractMember contractMember = new ContractMember();
 
                 if (_mode == "Edit")
                 {
                     obj.deleteContractDate(ID);
-                    obj.deleteContractAlert(ID); //1.0.3
                     obj.deleteContractMember(ID);
                 }
 
@@ -290,32 +272,6 @@ namespace AssetManager
                     contractMember.MemberID = Convert.ToInt32(row["MemberId"]);
                     contractMember.Value = Convert.ToDecimal(row["Value"]);
                     bool resultContractMember = obj.InsertContractMember(contractMember);
-                }
-
-                //1.0.3
-                //Insert Contract Alert
-                DataTable dtContractAlert = new DataTable();
-                dtContractAlert = (DataTable)gridControlAlert.DataSource;
-                DataView dv2 = dtContractAlert.DefaultView;
-                dv2.Sort = "AlertDate";
-                dtContractAlert = dv2.ToTable();
-                foreach (DataRow row in dtContractAlert.Rows) // Loop over the rows.
-                {
-                    contractAlert.ContractID = ID;
-                    //contractDate.No = Convert.ToInt32(row["No"]);
-                    contractAlert.No = alertCount + 1;
-                    contractAlert.AlertType = row["AlertType"].ToString();
-   
-                    if (row["AlertDate"].ToString().Equals(""))
-                    { 
-                        contractAlert.AlertDate = null;
-                    }
-                    else
-                    {
-                        contractAlert.AlertDate = Convert.ToDateTime(row["AlertDate"]);
-                    }
-                    alertCount++;
-                    bool resultContractDate = obj.InsertContractAlert(contractAlert);
                 }
 
                 if (_mode == "Edit")
@@ -424,15 +380,21 @@ namespace AssetManager
             }
         }
 
-        private void gridView3_KeyDown(object sender, KeyEventArgs e)
+        private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
-            {
-                GridView view = sender as GridView;
-                view.DeleteRow(view.FocusedRowHandle);
-            }
+
         }
 
+        private void gridView1_InitNewRow(object sender, InitNewRowEventArgs e)
+        {
+
+        }
+
+        private void gridView1_RowClick(object sender, RowClickEventArgs e)
+        {
+
+        }
+        
         private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
         {
             GridColumn Col = e.Column;
@@ -445,24 +407,16 @@ namespace AssetManager
             }
         }
 
-        private void gridView3_CustomColumnDisplayText(object sender,DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        private void gridView1_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            GridColumn Col = e.Column;
-            if (Col.Name == "AlertNo" && e.ListSourceRowIndex >= 0)
-            {
-                e.DisplayText = (e.ListSourceRowIndex + 1).ToString();
-            }
-            else if (Col.Name == "AlertNo")
-            {
-                e.DisplayText = "0";
-            }
+
         }
 
-        private void gridView3_InitNewRow(object sender, InitNewRowEventArgs e)
+        private void gridView2_CustomDrawFooterCell(object sender, FooterCellCustomDrawEventArgs e)
         {
-            DevExpress.XtraGrid.Views.Grid.GridView view = sender as GridView;
-            view.SetRowCellValue(e.RowHandle, view.Columns["AlertType"], "ทวงถามดอกเบี้ย");
+
         }
+
         #endregion
 
         #region Validate
@@ -513,8 +467,8 @@ namespace AssetManager
             
             return true;
         }
-
         #endregion
+
 
     }
 }

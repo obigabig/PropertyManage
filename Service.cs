@@ -80,45 +80,6 @@ namespace AssetManager
             }
         }
 
-        //1.0.3
-        public bool insertContractAlert(ContractAlert contractAlert)
-        {
-            using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(text))
-            {
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
-                {
-                    cmd.Connection = con;
-                    con.Open();
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "spInsertContractAlert";
-                    cmd.Parameters.AddWithValue("@ContractId", contractAlert.ContractID);
-                    cmd.Parameters.AddWithValue("@No", contractAlert.No);
-                    if (contractAlert.AlertType == null)
-                    {
-                        cmd.Parameters.AddWithValue("@AlertType", DBNull.Value);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@AlertType", contractAlert.AlertType);
-                    }
-                    if (contractAlert.AlertDate == null)
-                    {
-                        cmd.Parameters.AddWithValue("@AlertDate", DBNull.Value);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@AlertDate", contractAlert.AlertDate);
-                    }
-                    
-                    IAsyncResult result = cmd.BeginExecuteNonQuery();
-                    cmd.EndExecuteNonQuery(result);
-                    con.Close();
-                    return result.IsCompleted;
-                }
-            }
-        }
-
         public bool insertContractMember(ContractMember contractMember)
         {
             using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(text))
@@ -180,11 +141,6 @@ namespace AssetManager
             return insertContractDate(ContractDate);
         }
 
-        public bool InsertContractAlert(ContractAlert ContractAlert)
-        {
-            return insertContractAlert(ContractAlert);
-        }
-
         public bool InsertContractMember(ContractMember ContractMember)
         {
             return insertContractMember(ContractMember);
@@ -223,27 +179,6 @@ namespace AssetManager
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "spDeleteContractDate";
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    IAsyncResult result = cmd.BeginExecuteNonQuery();
-                    cmd.EndExecuteNonQuery(result);
-                    con.Close();
-                    return result.IsCompleted;
-                }
-            }
-        }
-
-        public bool deleteContractAlert(int id)
-        {
-            using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(text))
-            {
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
-                {
-                    cmd.Connection = con;
-                    con.Open();
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "spDeleteContractAlert";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     IAsyncResult result = cmd.BeginExecuteNonQuery();
@@ -503,30 +438,6 @@ namespace AssetManager
                 using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
                 {
                     cmd.CommandText = "spGetContractDatebyId";
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open();
-
-                    System.Data.SqlClient.SqlDataAdapter adapter = new System.Data.SqlClient.SqlDataAdapter(cmd);
-
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-
-                    conn.Close();
-                    return dt;
-                }
-            }
-        }
-
-        //1.0.3
-        public DataTable getContractAlertbyId(int id)
-        {
-            using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(text))
-            {
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
-                {
-                    cmd.CommandText = "spGetContractAlertbyId";
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id", id);
